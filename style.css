@@ -1,0 +1,140 @@
+.gradientDouble { background:  linear-gradient(90deg, rgba(0,0,0,1) 0%,
+     rgba(84,38,4,1) 8%, rgba(110,44,14,1) 19%,
+      rgba(171,57,38,1) 32%, rgba(252,176,69,1) 43%,
+       rgba(204,204,204,1) 52%, rgba(252,176,69,1) 59%, 
+       rgba(171,57,38,1) 69%, rgba(110,44,14,1) 77%, 
+       rgba(84,38,4,1) 84%, rgba(0,0,0,1) 100%);
+}
+
+body { background:  linear-gradient(90deg, rgba(0,0,0,1) 0%,
+    rgba(84,38,4,1) 8%, rgba(110,44,14,1) 19%,
+     rgba(171,57,38,1) 32%, rgba(252,176,69,1) 43%,
+      rgba(204,204,204,1) 52%, rgba(252,176,69,1) 59%, 
+      rgba(171,57,38,1) 69%, rgba(110,44,14,1) 77%, 
+      rgba(84,38,4,1) 84%, rgba(0,0,0,1) 100%);
+}
+.gradient {
+  
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%,
+     rgba(84,38,4,1) 8%, rgba(110,44,14,1) 19%, 
+     rgba(171,57,38,1) 32%, rgba(252,176,69,1) 59%,
+      rgba(204,204,204,1) 100%);
+}
+.gradientinv {
+    background: rgb(0,0,0);
+    background: linear-gradient(270deg, rgba(0,0,0,1) 0%, 
+    rgba(84,38,4,1) 8%, rgba(110,44,14,1) 19%,
+     rgba(171,57,38,1) 32%, rgba(252,176,69,1) 59%,
+      rgba(204,204,204,1) 100%);
+}
+.milieuG {
+    border-top-left-radius:  40px;
+    border-bottom-left-radius:40px ;
+}
+.milieuD {
+    border-top-right-radius:  40px;
+    border-bottom-right-radius:40px ;
+}
+.center {
+    text-align: center;   
+    
+}
+.top { 
+    align-content: top;
+}
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+.buttonInscriptmiddle{
+    text-align: right;
+    font-size: 2em ;
+}
+.buttonConnexmiddle{
+    text-align: left;
+    font-size: 2em ;
+}
+.border {
+    border-radius: 40px;
+    border: 10px solid ;
+    border-color: #13005865 ;    /* border-style: ridge; */
+}
+.border2 {
+    border-radius: 40px;
+    border: 10px  solid;
+    border-color: #13005865 ;
+}
+.flex {
+    display: flex;
+    flex-direction: row;
+}
+.flex10 {
+    flex-grow: 10;
+}
+.flex2 {
+    flex-grow: 2;
+}
+.flex5 {
+    flex-grow: 5;
+}
+.flex7{
+    flex-grow: 7;
+}
+
+.flexrow { 
+    flex-direction: row;
+    align-content: right;
+}
+.flexcolumn {
+    flex-direction: column;
+}
+
+.bulgatti   { font-family: bulgatti;}
+.silkserif   { font-family: silkserif;}
+.letterspacing{  letter-spacing: 0.2rem;}
+.bold {
+    font-weight: bolder;
+}
+.superBigFont{
+    font-size: 1em;
+}
+.bigFont {
+    font-size: 3em;
+}
+.mediumBigFont{
+    font-size: 1em;
+}
+.Font {
+    font-size: 0.5em;
+}
+.height4{
+    height: 7em;
+}
+@media (max-width: 800px) {
+    .flex {
+        flex-direction: column;
+    }
+    .bigFont {
+        font-size: 1em;
+    }
+    .button1fourthleft {
+        text-align: match-parent;
+    }
+
+} 
+
+/* mirroir de font */
+b1{ display: inline-block; } 
+.flip_H{ transform: scale(-1, 1);  }
+
+@font-face {
+font-family: bulgatti;
+src: url(bulgatti/Bulgatti.otf);
+}
+@font-face {
+    font-family: silkserif;
+    src: url(silk-serif-trial-medium-1732725587-0/SilkSerif.ttf);
+    }
