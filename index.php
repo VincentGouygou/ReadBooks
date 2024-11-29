@@ -1,9 +1,7 @@
 <?php
     include "headerG.php";
 ?>
-<title>Accueil -- ReadBooks</title>
-</head>
-<body>
+
     <div class="box  ">
         <div class="flex ">
             <div class=" flex10  height4 gradientDouble bulgatti bigFont bold "
@@ -14,10 +12,10 @@
         <div class="flex  ">
             <div class="milieu flex5"
             data-aos="flip-right">
-                <div class="gradientinv milieuG silkserif inscription  center bigFont bold ">
+                <div class="gradientinv milieuG silkserif inscription center bigFont bold ">
                     <b>Inscription</b> <br>  
                     <div class="">  
-                        <form class="   silkserif Font" for="finscription"  action="server.php" method="POST">
+                        <form class="   silkserif Font" for="finscription"  action="" method="POST">
                             <pre class="silkserif left"><input type="text"     name="fInscriptionNom"       id="fInscriptionNom" value="Gouygou" required> Nom                    </pre> 
                             <pre class="silkserif left"><input type="text"     name="fInscriptionPrenom"    id="fInscriptionPrenom" value="Vincent" required> Prénom                 </pre>   
                             <pre class="silkserif left"><input type="text"     name="fInscriptionTel"       id="fInscriptionTel" value="0607229383" required> Téléphone              </pre>   
@@ -25,7 +23,7 @@
                             <pre class="silkserif left"><input type="password" name="fInscriptionPass"      id="fInscriptionPass" value="alicia46" required> Mot de passe           </pre>    
                             <pre class="silkserif left"><input type="password" name="fInscriptionPassVerif" id="fInscriptionPassVerif" value="alicia46" required> Vérification de Mot de passe </pre>   
                                     <input type="text"     name="action"    value="inscription" hidden>
-                            <button class="bigfont silkserif button1middle mediumBigFont" id="finscription" type="submit"  >S'inscrire</button>
+                            <button onclick="inscription()"  class="bigfont silkserif button1middle mediumBigFont" id="finscription" type="submit"  >S'inscrire</button>
                         </form>
                     </div>
                 </div>
@@ -36,11 +34,11 @@
                 <b class="silkserif bigFont bold ">Connexion</b> <br>
                 <div class="bigFont"
                     >
-                    <form class="  " for="fconnexion"  action="server.php" method="POST">
+                    <form class="  " for="fconnexion"  action="" method="POST">
                         <pre class="silkserif Font right " >Email <input  type="email" name="fConnexionEmail"     id="fConnexionEmail" required></pre> 
                         <pre class="silkserif Font right ">Mot de passe <input  type="password" name="fConnexionPass"      id="fConnexionPass"  required></pre>
                         <input  type="text"     name="action"    value="connexion" hidden>
-                        <button class="silkserif button2middle  Font"  id="fconnexion" type="submit" >Se Connecter</button>
+                        <button onclick="connexion()" class="silkserif button2middle  Font"  id="fconnexion" type="submit" >Se Connecter</button>
                     </form>
                 </div>
                 
@@ -68,9 +66,52 @@
         </div>
     </div>
 
+<script>
 
+    function inscription() {
+        
+// j'assigne à l'id #envoyer, une fonction qui s'exécutera quand la div de l'id sera cliquée
+// dans cette fonction, je mets dans la variable message la valeur du text html contenu dans l'id #fmessage, soit l'id de l'input.
+                    let nom =       $('#fInscriptionNom').val();
+                    let prenom =    $('#fInscriptionPrenom').val();
+                    let telephone = $('#fInscriptionTel').val();
+                    let email =     $('#fInscriptionEmail').val();
+                    let pass =      $('#fInscriptionPass').val();
+                    let action ='inscription';
+                     // on prépare les données qui vont être envoyées par Ajax au fichier PHP
+                       // je mets ce message dans un tableau json (clé: valeur) 
+                    console.log(nom+" "+prenom+" ");
+                    let myData =  { "nom": nom,
+                                    "prenom": prenom,
+                                    "telephone": telephone,
+                                    "email": email,
+                                    "pass" : pass};
+                    console.log(myData);
+                        // fonction Ajax de jQuery
+                        // j'appelle ajax sur le fichier ajaxmessage.php avec la méthode GET pour lui envoyer en json myData
+                        $.ajax({
+                            url: "server.php", // Url appelée
+                            method: "POST",              // la méthode GET ou POST
+                            data: myData,
+                            dataType: "JSON",
+                            // si l'envoi est réussi 
+                            success: function(response) {
+                                let resp=json_decode(response);
+                                console.log(resp);
+                                // if (resp.['connect']=="ok") {
+                                //    window.location.href='rechercheLivre.php';
+                                // }
+                            },
+                            // s il y a une erreur je l'affiche en console et dans la div #messageID
+                            error: function(error) {
+                                console.log("error");
+                                $("#messageID").html("Une erreur s'est produite : " + error.statusText);
+                            }
+                        });
+         } // fin inscription
+</script>
     
-<?php 
+<?php
     include "footer.php";
 
-?> 
+?>
