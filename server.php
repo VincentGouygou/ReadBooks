@@ -1,4 +1,5 @@
 <?php
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -10,63 +11,64 @@ $conn = new mysqli($servername, $username, $password);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-echo "Connected successfully";
+echo "Connected successssssfully";
 
-// sql to create table
-$sql = "CREATE DATABASE rEaDBooks";
+// sql to create database
 
-if ($conn->query($sql) === TRUE) {
-  echo "database rEaDBooks created successfully";
-} else {
-  echo "Error creating reaDBooks: " . $conn->error;
-}
+// $sql = "CREATE DATABASE rrrrEaDBooks";
 
-$conn->close(); 
+// if ($conn->query($sql) === TRUE) {
+//   echo "database rEaDBooks created successfully";
+// } else {
+//   echo "Error creating reaDBooks: " . $conn->error;
+// }
+
+// $conn->close(); 
 
 //----------------------------------------------------------------------------------------------------
 
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "rEaDBooks";
+$dbname = "rrrrEaDBooks";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
-} else echo "Connected successfully";
+} else echo "Connected ssssssssuccessfully";
 
 
 // create table
 
-$sqlTable2= " CREATE TABLE uSers(
-id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-nom VARCHAR(30) NOT NULL,
-prenom VARCHAR(30) NOT NULL,
-telephone VARCHAR(30),
-email INTEGER NOT NULL,
-password VARCHAR(30) NOT NULL,
-reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-)";
+// $sqlTable2= " CREATE TABLE users(
+// id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+// nom VARCHAR(30) NOT NULL,
+// prenom VARCHAR(30) NOT NULL,
+// telephone VARCHAR(30),
+// email VARCHAR(30) NOT NULL,
+// password VARCHAR(30) NOT NULL,
+// reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+// )";
 
-if ($conn->query($sqlTable2) === TRUE) {
-    echo "table uSers created successfully";
-  } else {
-    echo "Error creating table users: " . $conn->error;
-  }
+// if ($conn->query($sqlTable2) === TRUE) {
+//     echo "table users created successfully";
+//   } else {
+//     echo "Error creating table users: " . $conn->error;
+//   }
 
 
-  if ( isset($_POST['fInscriptionEmail']) && isset($_POST['fInscriptionPass']) && $_POST['action']=='inscription' ) {
+  if (   $_POST['action']=='inscription' ) {
 
     // {'email': email,'pass':pass,'passVerif':passVerif,'action':'inscription'};
-    $nom=       $_POST['fInscriptionNom'];
-    $prenom=    $_POST['fInscriptionPrenom'];
-    $email=     $_POST['fInscriptionEmail'];
-    $telephone= $_POST['fInscriptionTel'];
-    $pass=      $_POST['fInscriptionPass'];
-    $passVerif= $_POST['fInscriptionPassVerif'];
-    $trouve=false;
+    $nom=       $_POST['nom'];
+    $prenom=    $_POST['prenom'];
+    $email=     $_POST['email'];
+    $telephone= $_POST['telephone'];
+    $pass=      $_POST['pass'];
+    $passVerif= $_POST['passVerif'];
+ 
     if ($pass!==$passVerif) { 
         echo "les mots de passe ne sont pas similaires"; 
         exit();
@@ -74,7 +76,7 @@ if ($conn->query($sqlTable2) === TRUE) {
 
 
       // ----------------------------------------------------------------------------------------------------------------------------------------------
-      $sql = "SELECT id, email, password FROM uSers";
+      $sql = "SELECT id, email, password FROM users";
       $result = $conn->query($sql);
 
             
@@ -87,26 +89,27 @@ if ($conn->query($sqlTable2) === TRUE) {
             exit;
           }
   
-          $nom=       $_POST['fInscriptionNom'];
-          $prenom=    $_POST['fInscriptionPrenom'];
-          $telephone= $_POST['fInscriptionTel'];
-          $email=     $_POST['fInscriptionEmail'];
-          $pass=      $_POST['fInscriptionPass'];
-          $insert = "INSERT INTO users(nom,prenom,telephone,email,password) 
-          VALUES ('$nom','$prenom','$telephone','$email','$pass')";
-                  echo $insert;
-          if ($conn->query($insert) === TRUE) {
-            
-            echo json_encode($nom);
-          } else {
-            echo "Error inserting: " . $conn->error;
-          }
   
 
 
 
         }
+        $nom=       $_POST['nom'];
+        $prenom=    $_POST['prenom'];
+        $telephone= $_POST['telephone'];
+        $email=     $_POST['email'];
+        $pass=      $_POST['pass'];
+        $insert = "INSERT INTO users(nom,prenom,telephone,email,password) 
+        VALUES ('$nom','$prenom','$telephone','$email','$pass')";
+        echo "Vous êtes connecté ! ! !";
+        if ($conn->query($insert) === TRUE) {
+          
+          echo  $nom;
+        } else {
+          echo "Error inserting: " . $conn->error;
+        }
       } else {
+      
         echo "0 results";
       }
     
@@ -148,7 +151,7 @@ if ( isset($_POST['fConnexionEmail']) && isset($_POST['fConnexionPass'])  && $_P
 
     $email=$_POST['fConnexionEmail'];
     $password=$_POST['fConnexionPass'];
-    $sql = "SELECT id, email, password FROM users";
+    $sql = "SELECT id, email, password FROM uSers";
     $result = $conn->query($sql);
 
           
