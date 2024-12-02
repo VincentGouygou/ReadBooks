@@ -1,24 +1,26 @@
 <?php
-// $servername = "localhost";
-// $username = "root";
-// $password = "";
 
-// // Create connection
-// $conn = new mysqli($servername, $username, $password);
+$servername = "localhost";
+$username = "root";
+$password = "";
 
-// // Check connection
-// if ($conn->connect_error) {
-//   die("Connection failed: " . $conn->connect_error);
-// }
-// echo "Connected successfully";
+// Create connection
+$conn = new mysqli($servername, $username, $password);
 
-// // sql to create table
-// $sql = "CREATE DATABASE readBooks";
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+
+// sql to create database
+
+// $sql = "CREATE DATABASE rrrrEaDBooks";
 
 // if ($conn->query($sql) === TRUE) {
-//   echo "database myDb created successfully";
+//   echo "database rEaDBooks created successfully";
 // } else {
-//   echo "Error creating db: " . $conn->error;
+//   echo "Error creating reaDBooks: " . $conn->error;
 // }
 
 // $conn->close(); 
@@ -28,17 +30,23 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "readBooks";
+$dbname = "rrrrEaDBooks";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
-} else echo "Connected successfully";
+}  
+
+
+// create table
 
 // $sqlTable2= " CREATE TABLE users(
 // id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+// nom VARCHAR(30) NOT NULL,
+// prenom VARCHAR(30) NOT NULL,
+// telephone VARCHAR(30),
 // email VARCHAR(30) NOT NULL,
 // password VARCHAR(30) NOT NULL,
 // reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -51,16 +59,16 @@ if ($conn->connect_error) {
 //   }
 
 
-  if ( isset($_POST['fInscriptionEmail']) && isset($_POST['fInscriptionPass']) && $_POST['action']=='inscription' ) {
+  if (   $_POST['action']=='inscription' ) {
 
     // {'email': email,'pass':pass,'passVerif':passVerif,'action':'inscription'};
-    $email=$_POST['fInscriptionEmail'];
-    $pass=$_POST['fInscriptionPass'];
-    $passVerif=$_POST['fInscriptionPassVerif'];
-
-    // $fileContentJson= file_get_contents("ListInscrits.json");
-
-    $trouve=false;
+    $nom=       $_POST['nom'];
+    $prenom=    $_POST['prenom'];
+    $email=     $_POST['email'];
+    $telephone= $_POST['telephone'];
+    $pass=      $_POST['pass'];
+    $passVerif= $_POST['passVerif'];
+ 
     if ($pass!==$passVerif) { 
         echo "les mots de passe ne sont pas similaires"; 
         exit();
@@ -75,33 +83,37 @@ if ($conn->connect_error) {
       if ($result->num_rows > 0) {
         // output data of each row
         while($row = $result->fetch_assoc()) {
-          echo "email: " . $row["email"]. " - password: " . $row["password"]. "<br>"; 
+          // echo "email: " . $row["email"]. " - password: " . $row["password"]. "<br>"; 
           if  ($email==$row["email"] )  {
             echo "Vous êtes dèjà inscrit  ! ! ! ";
             exit;
           }
-
   
-         
-
-          $email=$_POST['fInscriptionEmail'];
-          $pass=$_POST['fInscriptionPass'];
-          $insert = "INSERT INTO users(email,password) 
-          VALUES ('$email','$pass')";
-                  echo $insert;
-          if ($conn->query($insert) === TRUE) {
-            echo "insert inserted successfully" ;
-            echo "Vous êtes inscrit !!!"; 
-          } else {
-            echo "Error inserting: " . $conn->error;
-          }
-         
   
 
 
 
         }
+        $nom=       $_POST['nom'];
+        $prenom=    $_POST['prenom'];
+        $telephone= $_POST['telephone'];
+        $email=     $_POST['email'];
+        $pass=      $_POST['pass'];
+        $insert = "INSERT INTO users(nom,prenom,telephone,email,password) 
+        VALUES ('$nom','$prenom','$telephone','$email','$pass')";
+        
+        $response=['connected'=> $nom];
+    
+        echo  json_encode($response );
+        
+        if ($conn->query($insert) === TRUE) {
+          
+         
+        } else {
+          echo "Error inserting: " . $conn->error;
+        }
       } else {
+      
         echo "0 results";
       }
     
@@ -139,20 +151,30 @@ if ($conn->connect_error) {
 
 // connexion -------------------------------------------------------------------------------------
 
-if ( isset($_POST['fConnexionEmail']) && isset($_POST['fConnexionPass'])  && $_POST['action'] =='connexion' ) {
+if ( isset($_POST['email']) && isset($_POST['pass'])  && $_POST['action'] =='connexion' ) {
 
-    $email=$_POST['fConnexionEmail'];
-    $password=$_POST['fConnexionPass'];
-    $sql = "SELECT id, email, password FROM users";
+    $email=$_POST['email'];
+    $password=$_POST['pass'];
+    $sql = "SELECT id, nom, prenom, email, password FROM users";
     $result = $conn->query($sql);
 
           
     if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-        echo "email: " . $row["email"]. " - password: " . $row["password"]. "<br>"; 
+        
         if ( ($email==$row["email"] ) &&  ($password==$row["password"] ) ){
-          echo "Vous êtes connecté ! ! ! ";
+          $nom=$row["nom"];
+          $prenom=$row["prenom"];
+          $id=$row["id"];
+          $email==$row["email"];
+          // echo "prenom: ".$prenom. "email: " . $row["email"]. " - password: " . $row["password"]. "<br>"; 
+           $response=['connected'=> $prenom,
+                      'nom'=> $nom,
+                      'id'=>$id,
+                      'email'=>$email] ;
+          // echo $prenom;
+          echo  json_encode($response);
           exit;
         }
       }

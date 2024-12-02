@@ -1,0 +1,21 @@
+id
+titre
+auteur
+nbrepages
+caution
+synopsis
+theme
+proprio foreign users
+emprunteur foreign users
+liste des interessés
+liste commentaires
+
+table livre
+
+table users
+
+table commentaires ?
+
+table themes
+
+
